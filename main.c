@@ -27,7 +27,7 @@ int main() {
                 case 1 : /* Menu Opt1: "Scan Image" */
                     /* Insert function call for scanning */
                     break;
-                case 2 : /* Menu Opt2: "Remove Image from database" */
+                case 2 : /* Menu Opt2: "Clean database" */
                     /* Insert function call */
                     break;
                 case 3 : /* Menu Opt3: "Encrypt Image" */
@@ -56,7 +56,7 @@ void printMenu(void)
 {
     printf("\n\n"
      "1. Scan Image\n"
-     "2. Remove Image from Database\n"
+     "2. Clean Database\n"
      "3. Encrypt Image\n"
      "4. Decrypt Image\n"
      "5. Exit the program\n");
