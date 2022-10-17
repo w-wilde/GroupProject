@@ -9,7 +9,7 @@ description:
 #define OUTPUT_FILENAME "Ascii_Encryption.txt"/* constant-output file name*/
 #define MAX_NAME_SIZE 80/*constant-The maximum size of name*/
 
-void encryptFile()
+void decryptFile()
 {
     FILE *f1=NULL;
     FILE *f2=NULL;
@@ -17,7 +17,7 @@ void encryptFile()
     char c;
     char fileName[MAX_NAME_SIZE];
 
-    printf("Enter the name of the file you want to encrypt:\n");
+    printf("Enter the name of the file you want to decrypt:\n");
     scanf("%s",name);
 
     /*Get the file name from the user
@@ -26,7 +26,7 @@ void encryptFile()
     f1 = fopen(name, "r");
     if( f1 == NULL)
         printf("File not found\n");
-        return;
+    return;
     }
     printf("Input the key which is a number between 1 and 93:\n");
     scanf("%d",&key);
@@ -40,11 +40,10 @@ void encryptFile()
 
     while((c=fgetc(f1))!=EOF)
     {
-        c=(c-32+key)%94+32;
+        c=(c-32-key)%94+32;
         fputc(c,f2);
     }
     fclose(f2);
     fclose(f1);
-    printf("The file is encrypted!\n");
+    printf("The file is decrypted!\n");
 }
-
