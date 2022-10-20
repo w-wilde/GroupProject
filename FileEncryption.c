@@ -24,7 +24,7 @@ void encryptFile()
     and input to the function to open the file*/
 
     f1 = fopen(name, "r");
-    if( f1 == NULL)
+    if( f1 == NULL){
         printf("File not found\n");
         return;
     }

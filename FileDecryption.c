@@ -6,7 +6,7 @@ description:
 #include "project_utils.h"
 #include <stdio.h>/*printf,scanf,fopen,fclose,fgetc,fputc*/
 
-#define OUTPUT_FILENAME "Ascii_Encryption.txt"/* constant-output file name*/
+#define OUTPUT_FILENAME "Ascii_Decryption.txt"/* constant-output file name*/
 #define MAX_NAME_SIZE 80/*constant-The maximum size of name*/
 
 void decryptFile()
@@ -24,7 +24,7 @@ void decryptFile()
     and input to the function to open the file*/
 
     f1 = fopen(name, "r");
-    if( f1 == NULL)
+    if( f1 == NULL){
         printf("File not found\n");
     return;
     }
