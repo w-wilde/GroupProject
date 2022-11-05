@@ -1,3 +1,4 @@
+
 /*******************************************************************************
 author     : Alex Szpakiewicz
 description:
@@ -38,9 +39,10 @@ void insertMinHeap(MinHeap_t *minHeap, MinHeapNode_t *minHeapNode);
 void buildMinHeap(MinHeap_t *minHeap);
 MinHeap_t *createAndBuildMinHeap(char data[], int freq[], int size);
 void printCodes(MinHeapNode_t *root, int arr[], int top, int **codes, char *data, int size, int sizeofCode[]);
-void printArr(int arr[], int n);
 MinHeapNode_t* buildHuffmanTree(char data[], int freq[], int size);
 void HuffmanCodes(char data[], int freq[], int size, int **codes, int sizeofCodes[]);
+void BubbleSort(int *frequency, char *data, int size);
+void CharacterFreq(char S[], int *frequency);
 void CompressFile();
 
 
@@ -141,7 +143,6 @@ void printCodes(MinHeapNode_t *root, int arr[], int top, int **codes, char data[
     }
     if (root->left==NULL && root->right==NULL)
     {
-        printArr(arr, top);
         int i;
         for(i=0;i<size;i++){
             if(data[i]==root->data){
@@ -155,13 +156,6 @@ void printCodes(MinHeapNode_t *root, int arr[], int top, int **codes, char data[
             }
         }
     }
-}
-void printArr(int arr[], int n) {
-    int i;
-    for (i = 0; i < n; ++i) {
-        printf("%d", arr[i]);
-    }
-    printf("\n");
 }
 /*Huffman coding*/
 MinHeapNode_t* buildHuffmanTree(char data[], int freq[], int size)
@@ -194,6 +188,22 @@ void CharacterFreq(char S[], int *frequency)
         i++;
     }
 }
+void BubbleSort(int *frequency, char *data, int size)
+{
+    int i, j;
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if (frequency[j] > frequency[j + 1]) {
+                int temp = frequency[j];
+                frequency[j] = frequency[j + 1];
+                frequency[j + 1] = temp;
+                char temp1 = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp1;
+            }
+        }
+    }
+}
 
 void CompressFile(){
     FILE *f1=NULL;
@@ -203,6 +213,8 @@ void CompressFile(){
     int frequencyRaw[94] = { 0 };
     char fileName[MAX_NAME_SIZE];
     long numbytes;
+    char *data = (char*)calloc(1, sizeof(char));
+    int *freq = (int*)calloc(1, sizeof(int));
 
     printf("Enter the name of the file you want to compress:\n");
     scanf("%s",fileName);
@@ -223,8 +235,6 @@ void CompressFile(){
     }
     fread(c, sizeof(char), numbytes, f1);
     CharacterFreq(c, frequencyRaw);
-    char *data = (char*)calloc(1, sizeof(char));
-    int *freq = (int*)calloc(1, sizeof(int));
     int i = 0;
     int j = 0;
     for (i = 0; i < 94; i++) {
@@ -239,6 +249,7 @@ void CompressFile(){
     int size = j;
     int **codes = (int**)calloc(size, sizeof(int*));
     int sizeOfCodes[j];
+    BubbleSort(freq, data, size);
     HuffmanCodes(data, freq, size, codes, sizeOfCodes);
     int h;
     for (h = 0; h < size; h++) {
@@ -266,3 +277,4 @@ void CompressFile(){
     fclose(f2);
     fclose(f3);
 }
+
