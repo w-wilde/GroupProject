@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "projectFunctions.h"
 /********************************************************************************
 Name   : 48430 Fundamentals of C-Programming - Lab07 Group05 Project
 Members:
@@ -20,14 +16,10 @@ Additional Notes:
 #include <string.h>
 #include "projectFunctions.h"
 
-/* For this checkpoint, We put the main and the prototypes of our methods in the projectFunctions.h file.
- We also have a makefile to build and compile the methods*/
-
 /********************************************************************************
 Function Prototypes
 ********************************************************************************/
 void printMenu(void);
-
 
 /********************************************************************************
 Author     : William Trang
@@ -92,4 +84,3 @@ void printMenu(void)
            "4. Decrypt File with autokey\n"
            "5. Exit the program\n");
 }
-
