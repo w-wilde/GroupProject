@@ -1,14 +1,18 @@
 /*******************************************************************************
-author     : Alex Szpakiewicz
-description:
+author     : William Trang
+description:Decrypt a fil using the autokey algorithm
 
 *******************************************************************************/
-#include "project_utils.h"
+#include "projectFunctions.h"
 #include <stdio.h>/*printf,scanf,fopen,fclose,fgetc,fputc*/
 
-#define OUTPUT_FILENAME "Ascii_Decryption.txt"/* constant-output file name*/
+#define OUTPUT_FILENAME "decrypted.txt"
 #define MAX_NAME_SIZE 80/*constant-The maximum size of name*/
-
+/*Function prototypes*/
+void decryptFile();
+/*Function definitions*/
+/*Decrypt the file using the autokey algorithm and saves the decrypted file
+ CHecK if the file containing the data and if it doesnt exist, quits the function*/
 void decryptFile()
 {
     FILE *f1=NULL;
@@ -18,12 +22,12 @@ void decryptFile()
     char fileName[MAX_NAME_SIZE];
 
     printf("Enter the name of the file you want to decrypt:\n");
-    scanf("%s",name);
+    scanf("%s",fileName);
 
     /*Get the file name from the user
     and input to the function to open the file*/
 
-    f1 = fopen(name, "r");
+    f1 = fopen(fileName, "r");
     if( f1 == NULL){
         printf("File not found\n");
     return;

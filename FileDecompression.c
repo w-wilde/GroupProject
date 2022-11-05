@@ -1,24 +1,31 @@
+/*******************************************************************************
+author     : Alex Szpakiewicz
+description:Decompress a file using the Huffman algorithm
 
+*******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "projectFunctions.h"
 
+#define OUTPUT_FILENAME "decompressed.txt"
+#define DATA_FILENAME "Huffman.txt"
 #define MAX_NAME_SIZE 80/*constant-The maximum size of name*/
 #define MAX_SIZE 50
+/*Structure of a node*/
 struct MinHeapNode
 {
     char c;
     struct MinHeapNode *left, *right;
 };
 typedef struct MinHeapNode MinHeapNode_t;
-
+/*Function prototypes*/
 MinHeapNode_t* newNode(char c);
 int getCodes(char *characters, int **codes, int *sizeofCodes);
 int countLines(FILE *f0);
 MinHeapNode_t*  createTree(char *characters, int **codes, int size, int sizeofCodes[]);
 char* decodeData(MinHeapNode_t *root, int *data, char *decodedData, int lengthData);
 void DecompressFile();
-/*Create a new node and a new tree*/
+/*Create a new empty node*/
 MinHeapNode_t* newNode(char c)
 {
     MinHeapNode_t *temp = (MinHeapNode_t *)malloc(sizeof(MinHeapNode_t));
@@ -33,7 +40,7 @@ MinHeapNode_t* newNode0()
     temp->c = '0';
     return temp;
 }
-
+/*COunt the lines from a file, so the number of characters in the huffman tree*/
 int countLines(FILE *f0)
 {
     int count = 0;
@@ -43,6 +50,7 @@ int countLines(FILE *f0)
     }
     return count;
 }
+/*Create the huffman tree from the codes and the characters*/
 MinHeapNode_t* createTree(char *characters, int **codes, int size, int sizeofCodes[]){
     MinHeapNode_t *root = newNode0();
     int i = 0;
@@ -68,6 +76,7 @@ MinHeapNode_t* createTree(char *characters, int **codes, int size, int sizeofCod
     }
     return root;
 }
+/*Decode the data from the huffman tree*/
 char* decodeData(MinHeapNode_t *root, int data[], char *decodedData, int lengthData){
     MinHeapNode_t *temp = root;
     int i = 0;
@@ -88,6 +97,9 @@ char* decodeData(MinHeapNode_t *root, int data[], char *decodedData, int lengthD
     }
     return decodedData;
 }
+/*Decompress the file using the huffman tree and the compressed data
+ * the file is given by the user and is checked if it exists
+ * outputs a file containing the decompressed data*/
 void DecompressFile() {
     FILE *f1 = NULL;
     FILE *f2 = NULL;
@@ -111,12 +123,12 @@ void DecompressFile() {
         printf("Error opening file\n");
         return;
     }
-    f0 = fopen("Tree.txt", "r");
+    f0 = fopen(DATA_FILENAME, "r");
     if (f0 == NULL) {
         printf("Error opening file\n");
         return ;
     }
-    f2 = fopen("Decompressed.txt", "w");
+    f2 = fopen(OUTPUT_FILENAME, "w");
     fseek(f1, 0L, SEEK_END);
     numbytes = ftell(f1);
     fseek(f1, 0L, SEEK_SET);
@@ -163,6 +175,5 @@ void DecompressFile() {
     fclose(f1);
     fclose(f0);
     fclose(f2);
-
 }
 

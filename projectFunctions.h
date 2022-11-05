@@ -1,24 +1,17 @@
-#ifndef PROJECT_FUNCTIONS_h_
-#define PROJECT_FUNCTIONS_h_
+#ifndef PROJECT_FUNCTIONS_H_INCLUDED
+#define PROJECT_FUNCTIONS_H_INCLUDED
 
-/* This method would create the user menu*/
-static void Menu();
-/* This method would read the user input and call the subsequent method*/
-static void ReadInput();
 
 /* This method would compress th desired object using the Huffman algorithm*/
-static void CompressFile();
+void CompressFile();
 /* This method would decompress the desired object*/
-static void DecompressFile();
+void DecompressFile();
 
 /* This method would encrypt a file using the autokey algorithm*/
-static void encryptFile();
+void encryptFile();
 /* This method would decrypt a file*/
-static void decryptFile();
-
-/* This method would sort an input file based on parameters inputted by the user*/
-static void SortFile();
-/* This method would exit the program*/
-static void Exit();
+void decryptFile();
+/* This method would encrypt/decrypt a file with the XOR method*/
+void encryptDecrypt();
 
 #endif

@@ -1,14 +1,16 @@
 
 /*******************************************************************************
 author     : Alex Szpakiewicz
-description:
+description:Compress a file using the Huffman algorithm
 
 *******************************************************************************/
-#include <stdio.h>/*printf,scanf,fopen,fclose,fgetc,fputc*/
+#include <stdio.h>/*printf,scanf,fopen,fclose,fgetc,fprintf, fgets*/
 #include <stdlib.h>
 #include <string.h>
+#include "projectFunctions.h"
 
-#define OUTPUT_FILENAME "Ascii_Encryption.txt"/* constant-output file name*/
+#define OUTPUT_FILENAME "compressed.txt"
+#define DATA_FILENAME "Huffman.txt"
 #define MAX_NAME_SIZE 80/*constant-The maximum size of name*/
 
 
@@ -128,7 +130,7 @@ MinHeap_t *createAndBuildMinHeap(char data[], int freq[], int size)
     buildMinHeap(tree);
     return tree;
 }
-/*Print the codes*/
+/*Create the codes using the huffman algorithm*/
 void printCodes(MinHeapNode_t *root, int arr[], int top, int **codes, char data[], int size, int sizeofCodes[])
 {
     if (root->left)
@@ -157,7 +159,7 @@ void printCodes(MinHeapNode_t *root, int arr[], int top, int **codes, char data[
         }
     }
 }
-/*Huffman coding*/
+/*building the huffman tree and all its nodes*/
 MinHeapNode_t* buildHuffmanTree(char data[], int freq[], int size)
 {
     MinHeapNode_t *left, *right, *top;
@@ -173,13 +175,14 @@ MinHeapNode_t* buildHuffmanTree(char data[], int freq[], int size)
     }
     return extractMin(tree);
 }
+/*Create the huffman codes and the tree*/
 void HuffmanCodes(char data[], int freq[], int size, int **codes, int sizeofCodes[])
 {
     MinHeapNode_t *root = buildHuffmanTree(data, freq, size);
     int arr[100], top = 0;
     printCodes(root, arr, top, codes, data, size, sizeofCodes);
 }
-
+/*Extract the frequency of the characters in a string*/
 void CharacterFreq(char S[], int *frequency)
 {
     int i = 0;
@@ -188,6 +191,7 @@ void CharacterFreq(char S[], int *frequency)
         i++;
     }
 }
+/*Bubble sort the frequencies and data*/
 void BubbleSort(int *frequency, char *data, int size)
 {
     int i, j;
@@ -205,6 +209,9 @@ void BubbleSort(int *frequency, char *data, int size)
     }
 }
 
+/*Compress the file given by the user while checking its existence
+ * and if it is empty or not
+ * Generates a compressed file and the a file containing the characters and the corresponding codes*/
 void CompressFile(){
     FILE *f1=NULL;
     FILE *f2=NULL;
@@ -224,8 +231,8 @@ void CompressFile(){
         printf("File not found\n");
         return;
     }
-    f2 = fopen("compressed.txt", "w");
-    f3 = fopen("Tree.txt", "w");
+    f2 = fopen(OUTPUT_FILENAME, "w");
+    f3 = fopen(DATA_FILENAME, "w");
     fseek(f1, 0L, SEEK_END);
     numbytes = ftell(f1);
     fseek(f1, 0L, SEEK_SET);
